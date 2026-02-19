@@ -156,7 +156,7 @@ export async function enrollInCourseAction(
     });
 
     checkoutUrl = result.checkoutUrl as string;
-  } catch (error) {
+  } catch {
     return {
       status: "error",
       message: "Failed to enroll in course. Please try again later.",

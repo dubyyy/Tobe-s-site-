@@ -47,7 +47,7 @@ export default function Home() {
             Master New Skills with Tobeszn
           </h1>
           <p className="max-w-[700px] text-muted-foreground md:text-xl">
-            Join Tobeszn's exclusive learning platform. Access premium courses,
+            Join Tobeszn&apos;s exclusive learning platform. Access premium courses,
             expert insights, and content designed to accelerate your growth.
           </p>
 
