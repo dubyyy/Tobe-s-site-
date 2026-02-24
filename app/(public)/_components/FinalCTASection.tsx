@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const FinalCTASection = () => {
   return (
@@ -75,36 +76,11 @@ const FinalCTASection = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
-              <Button variant="hero" size="lg" className="px-8 sm:px-12 md:px-16 py-6 sm:py-8 text-lg sm:text-xl md:text-2xl h-auto rounded-[2rem] shadow-2xl shadow-primary/20 w-full sm:w-auto max-w-md sm:max-w-none">
-                Enroll Now — Let's Go
-              </Button>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 1 }}
-              className="flex items-center gap-8 pt-4"
-            >
-               {[
-                 { label: "30-day", sublabel: "Guarantee" },
-                 { label: "Lifetime", sublabel: "Access" },
-                 { label: "Community", sublabel: "Included" },
-               ].map((item, i) => (
-                 <motion.div
-                   key={i}
-                   initial={{ opacity: 0, y: 10 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   viewport={{ once: true }}
-                   transition={{ duration: 0.4, delay: 1.1 + i * 0.1 }}
-                 >
-                   {i > 0 && <div className="w-px h-8 bg-border absolute -left-4" />}
-                   <div className="flex flex-col items-center gap-1">
-                     <p className="text-foreground font-bold">{item.label}</p>
-                     <p className="text-xs text-muted-foreground uppercase tracking-widest">{item.sublabel}</p>
-                   </div>
-                 </motion.div>
-               ))}
+              <Link href="/subscribe">
+                <Button variant="hero" size="lg" className="px-8 sm:px-12 md:px-16 py-6 sm:py-8 text-lg sm:text-xl md:text-2xl h-auto rounded-[2rem] shadow-2xl shadow-primary/20 w-full sm:w-auto max-w-md sm:max-w-none">
+                  Enroll Now — Let's Go
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

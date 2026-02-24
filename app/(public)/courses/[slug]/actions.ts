@@ -54,6 +54,13 @@ export async function enrollInCourseAction(
       };
     }
 
+    if (course.price === null) {
+      return {
+        status: "error",
+        message: "Course price not available",
+      };
+    }
+
     let paystackCustomerCode: string;
     const userWithPaystackCustomer = await prisma.user.findUnique({
       where: {
