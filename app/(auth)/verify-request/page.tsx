@@ -43,7 +43,7 @@ function VerifyRequest() {
         fetchOptions: {
           onSuccess: () => {
             toast.success("Email verified");
-            router.push("/");
+            router.push("/courses");
           },
           onError: () => {
             toast.error("Error verifying Email/OTP");

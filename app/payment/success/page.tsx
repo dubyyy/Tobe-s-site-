@@ -2,37 +2,46 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useConfetti } from "@/hooks/use-confetti";
-import { ArrowLeft, CheckIcon } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 
-export default function PaymentSuccessfull() {
+export default function PaymentSuccessful() {
   const { triggerConfetti } = useConfetti();
 
   useEffect(() => {
     triggerConfetti();
   }, []);
+
   return (
     <div className="w-full min-h-screen flex flex-1 justify-center items-center">
-      <Card className="w-[350px]">
-        <CardContent>
-          <div className="w-full flex justify-center">
-            <CheckIcon className="size-12 p-2 bg-green-500/30 text-green-500 rounded-full" />
+      <Card className="max-w-md w-full">
+        <CardHeader className="text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10">
+            <CheckCircle className="h-6 w-6 text-green-500" />
           </div>
-          <div className="mt-3 text-center sm:mt-5 w-full">
-            <h2 className="text-xl font-semibold">Payment Successfull</h2>
-            <p className="text-sm mt-2 text-muted-foreground tracking-tight text-balance">
-              Congrats your payment was successfull. You should now have access
-              to the course!
-            </p>
-
+          <CardTitle className="text-2xl">Payment Successful!</CardTitle>
+          <CardDescription className="text-base mt-2">
+            Your subscription is now active
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            You now have unlimited access to all courses on the platform. Start learning today!
+          </p>
+          <div className="flex flex-col gap-2">
+            <Link
+              href="/courses"
+              className={buttonVariants({ className: "w-full" })}
+            >
+              Browse All Courses
+            </Link>
             <Link
               href="/dashboard"
-              className={buttonVariants({ className: "w-full mt-5" })}
+              className={buttonVariants({ variant: "outline", className: "w-full" })}
             >
-              <ArrowLeft className="size-4" />
               Go to Dashboard
             </Link>
           </div>

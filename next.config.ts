@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
         port: "",
         protocol: "https",
       },
+      {
+        hostname: "tobe.fly.storage.tigris.dev",
+        port: "",
+        protocol: "https",
+      },
+      {
+        hostname: "avatar.vercel.sh",
+        port: "",
+        protocol: "https",
+      },
     ],
   },
 

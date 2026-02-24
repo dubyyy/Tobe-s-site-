@@ -11,5 +11,11 @@ export default async function LoginPage() {
   if (session) {
     return redirect("/");
   }
-  return <LoginForm />;
+  return (
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <div className="max-w-md w-full mx-auto">
+        <LoginForm />
+      </div>
+    </div>
+  );
 }

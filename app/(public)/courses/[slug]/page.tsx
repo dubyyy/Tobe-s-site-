@@ -19,9 +19,8 @@ import {
 } from "@tabler/icons-react";
 import { CheckIcon } from "lucide-react";
 import Image from "next/image";
-import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
+import { checkUserHasActiveSubscription } from "@/app/data/subscription/get-user-subscription";
 import Link from "next/link";
-import { EnrollmentButton } from "./_components/EnrollmentButton";
 import { buttonVariants } from "@/components/ui/button";
 
 type Params = Promise<{ slug: string }>;
@@ -29,7 +28,7 @@ type Params = Promise<{ slug: string }>;
 export default async function SlugPage({ params }: { params: Params }) {
   const { slug } = await params;
   const course = await getIndividualCourse(slug);
-  const isEnrolled = await checkIfCourseBought(course.id);
+  const hasActiveSubscription = await checkUserHasActiveSubscription();
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 mt-5">
@@ -168,16 +167,6 @@ export default async function SlugPage({ params }: { params: Params }) {
         <div className="sticky top-20">
           <Card className="py-0">
             <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <span className="text-lg font-medium">Price:</span>
-                <span className="text-2xl font-bold text-primary">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(course.price)}
-                </span>
-              </div>
-
               <div className="mb-6 space-y-3 rounded-lg bg-muted p-4">
                 <h4 className="font-medium">What you will get:</h4>
                 <div className="flex flex-col gap-3">
@@ -259,7 +248,7 @@ export default async function SlugPage({ params }: { params: Params }) {
                 </ul>
               </div>
 
-              {isEnrolled ? (
+              {hasActiveSubscription ? (
                 <Link
                   className={buttonVariants({ className: "w-full" })}
                   href="/dashboard"
@@ -267,11 +256,16 @@ export default async function SlugPage({ params }: { params: Params }) {
                   Watch Course
                 </Link>
               ) : (
-                <EnrollmentButton courseId={course.id} />
+                <Link
+                  className={buttonVariants({ className: "w-full" })}
+                  href="/subscribe"
+                >
+                  Subscribe to Access
+                </Link>
               )}
 
               <p className="mt-3 text-center text-xs text-muted-foreground">
-                30-day money-back guarantee
+                Subscribe once, access all courses
               </p>
             </CardContent>
           </Card>

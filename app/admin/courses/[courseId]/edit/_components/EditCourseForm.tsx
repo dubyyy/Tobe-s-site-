@@ -54,7 +54,7 @@ export function EditCourseForm({ data }: iAppProps) {
       title: data.title,
       description: data.description,
       fileKey: data.fileKey,
-      price: data.price,
+      price: data.price ?? undefined,
       duration: data.duration,
       level: data.level,
       category: data.category as CourseSchemaType["category"],

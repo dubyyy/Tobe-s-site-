@@ -48,6 +48,18 @@ export default createMiddleware(aj, async (request: NextRequest) => {
     return authMiddleware(request);
   }
 
+  // Check subscription for dashboard access
+  if (request.nextUrl.pathname.startsWith("/dashboard")) {
+    const sessionCookie = getSessionCookie(request);
+    
+    if (!sessionCookie) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    // Note: Subscription check is done at the page level for better UX
+    // Users without subscription will be redirected to /subscribe from the page
+  }
+
   // For non-admin routes, just continue
   return NextResponse.next();
 });

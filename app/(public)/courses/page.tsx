@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export default function PublicCoursesroute() {
   return (
-    <div className="mt-5">
+    <div className="mt-5 px-4 md:px-6 lg:px-8 py-6">
       <div className="flex flex-col space-y-2 mb-10">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tighter">
           Explore Courses

@@ -23,11 +23,9 @@ export async function POST(req: Request) {
     const data = event.data;
     const metadata = data.metadata;
 
-    const courseId = metadata?.courseId;
     const userId = metadata?.userId;
-    const enrollmentId = metadata?.enrollmentId;
 
-    if (!courseId || !userId || !enrollmentId) {
+    if (!userId) {
       return new Response("Missing metadata", { status: 400 });
     }
 
@@ -41,17 +39,48 @@ export async function POST(req: Request) {
       return new Response("User not found", { status: 404 });
     }
 
-    await prisma.enrollment.update({
-      where: {
-        id: enrollmentId,
-      },
-      data: {
-        userId: user.id,
-        courseId: courseId,
-        amount: data.amount / 100,
-        status: "Active",
-      },
-    });
+    if (metadata.type === 'subscription') {
+      const subscriptionId = metadata?.subscriptionId;
+
+      if (!subscriptionId) {
+        return new Response("Missing subscription metadata", { status: 400 });
+      }
+
+      const startDate = new Date();
+      const endDate = new Date();
+      endDate.setMonth(endDate.getMonth() + 1);
+
+      await prisma.subscription.update({
+        where: {
+          id: subscriptionId,
+        },
+        data: {
+          status: "Active",
+          startDate: startDate,
+          endDate: endDate,
+          paystackReference: data.reference,
+        },
+      });
+    } else {
+      const courseId = metadata?.courseId;
+      const enrollmentId = metadata?.enrollmentId;
+
+      if (!courseId || !enrollmentId) {
+        return new Response("Missing enrollment metadata", { status: 400 });
+      }
+
+      await prisma.enrollment.update({
+        where: {
+          id: enrollmentId,
+        },
+        data: {
+          userId: user.id,
+          courseId: courseId,
+          amount: data.amount / 100,
+          status: "Active",
+        },
+      });
+    }
   }
 
   return new Response(null, { status: 200 });

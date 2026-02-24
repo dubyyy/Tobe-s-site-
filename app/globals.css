@@ -190,3 +190,17 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#C5A059] via-[#F1D28C] to-[#C5A059];
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+  }
+
+  .hover-glow-gold:hover {
+    box-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
+  }
+}
