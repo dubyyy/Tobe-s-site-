@@ -61,6 +61,8 @@ export async function enrollInCourseAction(
       };
     }
 
+    const coursePrice = course.price;
+
     let paystackCustomerCode: string;
     const userWithPaystackCustomer = await prisma.user.findUnique({
       where: {
@@ -121,7 +123,7 @@ export async function enrollInCourseAction(
             id: existingEnrollment.id,
           },
           data: {
-            amount: course.price,
+            amount: coursePrice,
             status: "Pending",
             updatedAt: new Date(),
           },
@@ -131,7 +133,7 @@ export async function enrollInCourseAction(
           data: {
             userId: user.id,
             courseId: course.id,
-            amount: course.price,
+            amount: coursePrice,
             status: "Pending",
           },
         });
@@ -139,7 +141,7 @@ export async function enrollInCourseAction(
 
       const transaction = await paystack.transaction.initialize({
         email: user.email,
-        amount: course.price * 100,
+        amount: coursePrice * 100,
         currency: 'NGN',
         callback_url: `${env.BETTER_AUTH_URL}/payment/success`,
         metadata: {
